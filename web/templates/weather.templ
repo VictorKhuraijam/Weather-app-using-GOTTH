@@ -1,0 +1,59 @@
+package templates
+
+import (
+	"fmt"
+	"weather-app/internal/weather"
+)
+
+// WeatherCard renders a beautiful weather information card
+templ WeatherCard(w *weather.WeatherResponse) {
+	<div class="bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl p-6 text-white shadow-xl fade-in">
+		<div class="flex items-start justify-between mb-4">
+			<div>
+				<h2 class="text-3xl font-bold">{ w.Location.Name }</h2>
+				<p class="text-blue-100">{ w.Location.Region }, { w.Location.Country }</p>
+				<p class="text-sm text-blue-100 mt-1">{ w.Location.LocalTime }</p>
+			</div>
+			<img
+				src={ fmt.Sprintf("https:%s", w.Current.Condition.Icon) }
+				alt={ w.Current.Condition.Text }
+				class="w-20 h-20"
+			/>
+		</div>
+		<div class="mb-6">
+			<div class="flex items-baseline">
+				<span class="text-6xl font-bold">{ fmt.Sprintf("%.1f", w.Current.TempC) }</span>
+				<span class="text-3xl ml-2">°C</span>
+				<span class="text-xl ml-4 text-blue-100">
+					({ fmt.Sprintf("%.1f", w.Current.TempF) }°F)
+				</span>
+			</div>
+			<p class="text-xl text-blue-100 mt-2">{ w.Current.Condition.Text }</p>
+		</div>
+		<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+			<div class="bg-white/20 backdrop-blur rounded-lg p-3">
+				<p class="text-sm text-blue-100">Feels Like</p>
+				<p class="text-2xl font-semibold">{ fmt.Sprintf("%.1f", w.Current.FeelsLike) }°C</p>
+			</div>
+			<div class="bg-white/20 backdrop-blur rounded-lg p-3">
+				<p class="text-sm text-blue-100">Humidity</p>
+				<p class="text-2xl font-semibold">{ fmt.Sprintf("%d", w.Current.Humidity) }%</p>
+			</div>
+			<div class="bg-white/20 backdrop-blur rounded-lg p-3">
+				<p class="text-sm text-blue-100">Wind</p>
+				<p class="text-2xl font-semibold">{ fmt.Sprintf("%.1f", w.Current.WindKph) } km/h</p>
+				<p class="text-xs text-blue-100">{ w.Current.WindDir }</p>
+			</div>
+			<div class="bg-white/20 backdrop-blur rounded-lg p-3">
+				<p class="text-sm text-blue-100">UV Index</p>
+				<p class="text-2xl font-semibold">{ fmt.Sprintf("%.0f", w.Current.UV) }</p>
+			</div>
+		</div>
+		<div class="mt-4 pt-4 border-t border-white/30">
+			<div class="flex justify-between text-sm">
+				<span>Cloud Cover: { fmt.Sprintf("%d", w.Current.Cloud) }%</span>
+				<span>Coordinates: { fmt.Sprintf("%.2f, %.2f", w.Location.Lat, w.Location.Lon) }</span>
+			</div>
+		</div>
+	</div>
+}
