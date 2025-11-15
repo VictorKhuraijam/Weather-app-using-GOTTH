@@ -12,7 +12,7 @@ import (
 // InitRedis initializes Redis connection with health check
 // Returns nil if Redis is unavailable - app will work without cache
 // This allows graceful degradation instead of crashing
-func InitRedis(config config.Config, logger *logrus.Logger) *redis.Client {
+func InitRedis(config *config.Config, logger *logrus.Logger) *redis.Client {
 	client := redis.NewClient(&redis.Options{
 		Addr:     config.RedisAddress,
 		Password: config.RedisPassword,

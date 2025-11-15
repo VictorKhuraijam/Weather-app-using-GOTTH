@@ -14,7 +14,7 @@ func main() {
 
 	// Initialize logger
 	log := logger.InitLogger()
-	log.Info("🚀 Starting Weather App (GOTTH Stack)")
+	log.Info("Starting Weather App (GOTTH Stack)")
 
 	// Initialize Redis cache
 	redisClient := cache.InitRedis(cfg, log)

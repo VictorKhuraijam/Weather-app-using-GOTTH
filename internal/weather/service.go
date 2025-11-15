@@ -22,9 +22,9 @@ type Service struct {
 }
 
 // NewService creates a new weather service instance
-func NewService(cfg config.Config, redis *redis.Client, logger *logrus.Logger) *Service {
+func NewService(cfg *config.Config, redis *redis.Client, logger *logrus.Logger) *Service {
 	return &Service{
-		config: cfg,
+		config: *cfg,
 		redis:  redis,
 		logger: logger,
 	}

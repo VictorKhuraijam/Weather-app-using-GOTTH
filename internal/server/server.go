@@ -20,7 +20,7 @@ type Server struct {
 }
 
 // New creates a new server instance with all middleware and routes configured
-func New(cfg config.Config, weatherService *weather.Service, log *logrus.Logger) *Server {
+func New(cfg *config.Config, weatherService *weather.Service, log *logrus.Logger) *Server {
 	// Create Fiber app with custom error handler
 	app := fiber.New(fiber.Config{
 		AppName: "Weather App GOTTH",
@@ -42,7 +42,7 @@ func New(cfg config.Config, weatherService *weather.Service, log *logrus.Logger)
 
 	srv := &Server{
 		app:            app,
-		config:         cfg,
+		config:         *cfg,
 		weatherService: weatherService,
 		logger:         log,
 	}
