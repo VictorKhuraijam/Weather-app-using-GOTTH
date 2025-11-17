@@ -115,5 +115,5 @@ func (s *Service) cacheWeather(ctx context.Context, key string, weather *Weather
 	s.logger.WithFields(logrus.Fields{
 		"key":    key,
 		"expiry": expiry,
-	}).Debug("💾 Cached weather data")
+	}).Debug("Cached weather data")
 }
