@@ -52,7 +52,7 @@ func (s *Service) GetWeather(ctx context.Context, city string) (*WeatherResponse
 	// Cache miss - fetch from API
 	s.logger.WithFields(logrus.Fields{
 		"city": city,
-	}).Debug("🌐 Fetching from API")
+	}).Debug(" Fetching from API")
 
 	weather, err := s.fetchFromAPI(city)
 	if err != nil {
