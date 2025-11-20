@@ -58,6 +58,7 @@ func (s *Service) GetWeather(ctx context.Context, city string) (*WeatherResponse
 	if err != nil {
 		return nil, err
 	}
+	// fmt.Println("Weather is :",weather)
 
 	// Cache the result
 	s.cacheWeather(ctx, cacheKey, weather)

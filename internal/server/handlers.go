@@ -45,6 +45,7 @@ func (s *Server) handleWeather(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusInternalServerError).
 			SendString(fmt.Sprintf("<div class='p-4 bg-red-100 text-red-700 rounded'>Error: %v</div>", err))
 	}
+	fmt.Println("Weather is :",weather)
 
 	// Log successful fetch
 	s.logger.WithFields(logrus.Fields{
