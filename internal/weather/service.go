@@ -72,7 +72,11 @@ func (s *Service) fetchFromAPI(city string) (*WeatherResponse, error) {
 		s.config.APIURL, s.config.APIKey, city)
 
 	agent := fiber.Get(url)
+
 	statusCode, body, errs := agent.Bytes()
+	var weather WeatherResponse
+	// data := json.Unmarshal(body, &weather)
+	// fmt.Println("url returning agent", statusCode, data, errs)
 
 	if len(errs) > 0 {
 		return nil, fmt.Errorf("failed to fetch weather data: %v", errs[0])
@@ -82,7 +86,6 @@ func (s *Service) fetchFromAPI(city string) (*WeatherResponse, error) {
 		return nil, fmt.Errorf("weather API returned status code: %d", statusCode)
 	}
 
-	var weather WeatherResponse
 	if err := json.Unmarshal(body, &weather); err != nil {
 		return nil, fmt.Errorf("failed to parse weather data: %w", err)
 	}
@@ -92,6 +95,7 @@ func (s *Service) fetchFromAPI(city string) (*WeatherResponse, error) {
 
 // cacheWeather stores weather data in Redis cache
 func (s *Service) cacheWeather(ctx context.Context, key string, weather *WeatherResponse) {
+
 	if s.redis == nil {
 		return
 	}
