@@ -24,8 +24,10 @@ func (s *Server) handleWeather(c *fiber.Ctx) error {
 	city := c.Query("city")
 	if city == "" {
 		s.logger.Warn("Weather request missing city parameter")
-		return c.Status(fiber.StatusBadRequest).
-			SendString("<div class='p-4 bg-red-100 text-red-700 rounded'>Please provide a city name</div>")
+		// return c.Status(fiber.StatusBadRequest). //4xx response
+		// 	SendString("<div class='p-4 bg-red-100 text-red-700 rounded'>Please provide a city name</div>")
+		//HTMX DOES NOT SWAP anything when the response status is not 2xx unless configured to handle them.
+		return c.SendString("<div class='p-4 bg-red-100 text-red-700 rounded'>Please provide a city name</div>")
 	}
 
 	// Log the request with context
@@ -42,8 +44,9 @@ func (s *Server) handleWeather(c *fiber.Ctx) error {
 			"error": err.Error(),
 		}).Error(" Failed to fetch weather")
 
-		return c.Status(fiber.StatusInternalServerError).
-			SendString(fmt.Sprintf("<div class='p-4 bg-red-100 text-red-700 rounded'>Error: %v</div>", err))
+		// return c.Status(fiber.StatusInternalServerError).
+		// 	SendString(fmt.Sprintf("<div class='p-4 bg-red-100 text-red-700 rounded'>Error: %v</div>", err))
+			return c.SendString(fmt.Sprintf("<div class='p-4 bg-red-100 text-red-700 rounded'>Error: %v</div>", err))
 	}
 	fmt.Println("Weather is :",weather)
 
