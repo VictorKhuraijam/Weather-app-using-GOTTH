@@ -75,12 +75,30 @@ func (s *Server) handleHealth(c *fiber.Ctx) error {
 		redisStatus = "unknown"
 	}
 
-	return c.JSON(fiber.Map{
-		"status":    "healthy",
-		"redis":     redisStatus,
-		"timestamp": time.Now(),
-		"version":   "1.0.0",
-	})
+	status := "healthy"
+	currentTime := time.Now().Format(time.RFC3339)
+	version := "1.0.0"
+
+	// return c.JSON(fiber.Map{
+	// 	"status":    "healthy",
+	// 	"redis":     redisStatus,
+	// 	"timestamp": time.Now(),
+	// 	"version":   "1.0.0",
+	// })
+	c.Set(fiber.HeaderContentType, fiber.MIMETextHTMLCharsetUTF8)
+	return c.SendString(fmt.Sprintf(
+		`<div class='p-4 flex flex-col bg-green-100 text-green-700 rounded'>
+			<p>Status: %s</p>
+			<p>Redis: %s</p>
+			<p>Timestamp: %s</p>
+			<p>Version: %s</p>
+		</div>`,
+		status,
+		redisStatus,
+		currentTime,
+		version,
+	))
+
 }
 
 // render is a helper function to render Templ components

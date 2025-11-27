@@ -8,6 +8,14 @@ import (
 	"weather-app/internal/weather"
 )
 
+// Dependency Injection means:
+// ✔ A struct does NOT create the things it depends on
+// ✔ main.go provides the dependencies
+// ✔ service.go only uses the dependencies
+// ✔ cleaner code, easier testing, better architecture
+// ✔ predictable memory layout and resource control
+// ✔ enables replacing Redis, logger, or config easily
+
 func main() {
 	// Initialize configuration
 	cfg := config.Load()
