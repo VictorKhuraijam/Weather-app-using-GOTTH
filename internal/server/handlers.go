@@ -87,7 +87,15 @@ func (s *Server) handleHealth(c *fiber.Ctx) error {
 	// })
 	c.Set(fiber.HeaderContentType, fiber.MIMETextHTMLCharsetUTF8)
 	return c.SendString(fmt.Sprintf(
-		`<div class='p-4 flex flex-col bg-green-100 text-green-700 rounded'>
+		`<div style="
+				padding: 1rem;
+				display: flex;
+				align-items: center;
+				flex-direction: column;
+				background-color: #d1fae5;
+				color: #047857;
+				border-radius: 0.25rem;
+				">
 			<p>Status: %s</p>
 			<p>Redis: %s</p>
 			<p>Timestamp: %s</p>
