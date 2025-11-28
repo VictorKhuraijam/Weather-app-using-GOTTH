@@ -15,7 +15,7 @@ COPY . .
 
 # Generate templ files and build
 RUN templ generate
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o weather-app ./cmd/server
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o weather-app .
 
 # Runtime stage
 FROM alpine:latest

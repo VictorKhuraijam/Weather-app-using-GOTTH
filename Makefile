@@ -16,17 +16,17 @@ templ:
 # Development mode with hot reload
 dev:
 	@echo "🚀 Starting development mode with hot reload..."
-	templ generate --watch --proxy="http://localhost:8080" --cmd="go run cmd/server/main.go"
+	templ generate --watch --proxy="http://localhost:8080" --cmd="go run ./main.go"
 
 # Run the application
 run: templ
 	@echo "🚀 Running application..."
-	go run cmd/server/main.go
+	go run ./main.go
 
 # Build the application
 build: templ
 	@echo "🔨 Building application..."
-	go build -o bin/weather-app cmd/server/main.go
+	go build -o bin/weather-app ./main.go
 	@echo "✅ Binary created at bin/weather-app"
 
 # Clean generated files and build artifacts
